@@ -1,0 +1,22 @@
+{
+  "name": "bdayfinder",
+  "version": "1.0.0",
+  "description": "Herexamen webtech advanced: frontend. Nodejs applicatie waarmee men kan chatten met mensen die op dezelfde dag geboren zijn.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moophie/bdayfinder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moophie/bdayfinder/issues"
+  },
+  "homepage": "https://github.com/Moophie/bdayfinder#readme",
+  "dependencies": {
+    "express-generator": "^4.16.1"
+  }
+}
