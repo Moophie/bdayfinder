@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const config = require('config');
 
 const passport = require('./passport/passport');
 
@@ -13,7 +14,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/bdayfinder', {
+mongoose.connect(process.env.config || config.get('database.conn'), {
   useNewUrlParser: true,
 });
 
