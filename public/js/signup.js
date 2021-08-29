@@ -1,5 +1,8 @@
 let signupButton = document.querySelector('#signupButton').addEventListener("click", (e) => {
     let username = document.querySelector('#username').value;
+    let email = document.querySelector('#email').value;
+    let firstname = document.querySelector('#firstname').value;
+    let lastname = document.querySelector('#lastname').value;
     let password = document.querySelector('#password').value;
 
     fetch("/users/signup", {
@@ -9,7 +12,10 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
         },
         body: JSON.stringify({
             "username": username,
-            "password": password
+            "email": email,
+            "firstname": firstname,
+            "lastname": lastname,
+            "password": password,
         })
     }).then(response => {
         return response.json();
