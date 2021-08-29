@@ -72,14 +72,27 @@ const login = async (req, res, next) => {
 
 const getUserFromToken = (req, res) => {
     let token = req.body.token;
-    let user = jwt_decode(token);
+    let decodedToken = jwt_decode(token);
 
-    res.json({
-        "status": "success",
-        "data": {
-            "user": user
+    User.findOne({
+        "_id": decodedToken.uid
+    }, (err, user) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't find the user."
+            });
         }
-    })
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "user": user
+                }
+            });
+        }
+    });
 };
 
 module.exports.signup = signup;
