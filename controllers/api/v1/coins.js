@@ -4,8 +4,6 @@ const getAllTransfers = (req, res, next) => {
     Transfer.find({
         "sender": req.body.sender
     }, (err, docs) => {
-
-        console.log(docs);
         if (err) {
             res.json({
                 "status": "error",
@@ -33,14 +31,25 @@ const getAllTransfers = (req, res, next) => {
 }
 
 const getOneTransfer = (req, res) => {
-    let id = req.params.id;
-
-    res.json({
-        status: 'succes',
-        data: {
-            message: `Getting transfer with id ${id}`
+    Transfer.find({
+        "_id": req.params.id
+    }, (err, doc) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't find that transfer."
+            });
         }
-    })
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "transfer": doc
+                }
+            });
+        }
+    });
 }
 
 const postTransfer = (req, res, next) => {
