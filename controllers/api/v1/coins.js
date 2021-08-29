@@ -1,4 +1,5 @@
 const Transfer = require('../../../models/Transfer');
+const User = require('../../../models/User');
 
 const getAllTransfers = (req, res, next) => {
     Transfer.find({
@@ -83,12 +84,23 @@ const postTransfer = (req, res, next) => {
 };
 
 const getLeaderboard = (req, res) => {
-    res.json({
-        status: 'succes',
-        data: {
-            message: `Showing leaderboard`
+    User.find((err, users) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't get the leaderboard."
+            });
         }
-    })
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "users": users
+                }
+            });
+        }
+    }).sort({coins: 'desc'});
 }
 
 
