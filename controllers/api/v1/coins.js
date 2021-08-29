@@ -1,12 +1,35 @@
 const Transfer = require('../../../models/Transfer');
 
-const getAllTransfers = (req, res) => {
-    res.json({
-        status: 'succes',
-        data: {
-            message: `Getting all transfers`
+const getAllTransfers = (req, res, next) => {
+    Transfer.find({
+        "sender": req.body.sender
+    }, (err, docs) => {
+
+        console.log(docs);
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't get your transfers."
+            });
         }
-    })
+
+        // Give appropriate message if the user has no transactions
+        // if(docs === []){
+        //     res.json({
+        //         "status": "error",
+        //         "message": "We didn't find any transfers you were a part of."
+        //     });
+        // }
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "transfers": docs
+                }
+            });
+        }
+    });
 }
 
 const getOneTransfer = (req, res) => {
@@ -31,11 +54,23 @@ const postTransfer = (req, res, next) => {
         amount: amount
     });
 
-    transfer.save(() => {
-        res.json({
-            "status": "success",
-        })
-    });
+    transfer.save((err, doc) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "Could not save this transfer."
+            });
+        }
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "transfer": doc
+                }
+            });
+        }
+    })
 };
 
 const getLeaderboard = (req, res) => {
