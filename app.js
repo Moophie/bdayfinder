@@ -14,7 +14,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.config || config.get('database.conn'), {
+mongoose.connect(process.env.dbconn || config.get('database.conn'), {
   useNewUrlParser: true,
 });
 
