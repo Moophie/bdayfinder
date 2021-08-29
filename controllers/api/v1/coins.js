@@ -1,3 +1,5 @@
+const Transfer = require('../../../models/Transfer');
+
 const getAllTransfers = (req, res) => {
     res.json({
         status: 'succes',
@@ -18,14 +20,23 @@ const getOneTransfer = (req, res) => {
     })
 }
 
-const postTransfer = (req, res) => {
-    res.json({
-        status: 'succes',
-        data: {
-            message: `Posting transfer`
-        }
-    })
-}
+const postTransfer = (req, res, next) => {
+    let sender = req.body.sender;
+    let receiver = req.body.receiver;
+    let amount = req.body.amount;
+
+    const transfer = new Transfer({
+        sender: sender,
+        receiver: receiver,
+        amount: amount
+    });
+
+    transfer.save(() => {
+        res.json({
+            "status": "success",
+        })
+    });
+};
 
 const getLeaderboard = (req, res) => {
     res.json({
