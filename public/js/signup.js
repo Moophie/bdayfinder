@@ -5,27 +5,33 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
     let lastname = document.querySelector('#lastname').value;
     let password = document.querySelector('#password').value;
 
-    fetch("/users/signup", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "username": username,
-            "email": email,
-            "firstname": firstname,
-            "lastname": lastname,
-            "password": password,
+    if (email.endsWith("@student.thomasmore.be")) {
+        fetch("/users/signup", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "username": username,
+                "email": email,
+                "firstname": firstname,
+                "lastname": lastname,
+                "password": password,
+            })
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            if (json.status === "success") {
+                let token = json.data.token;
+                localStorage.setItem("token", token);
+                window.location.href = "index.html";
+            } else {
+                // Add error handling
+            }
         })
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        if (json.status === "success") {
-            let token = json.data.token;
-            localStorage.setItem("token", token);
-            window.location.href = "index.html";
-        } else {
-            // Add error handling
-        }
-    })
+    } else {
+       // Error handling
+    }
+
+
 });
