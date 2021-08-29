@@ -2,6 +2,7 @@ const User = require('../models/User');
 const passport = require('../passport/passport');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const jwt_decode = require('jwt-decode');
 
 const signup = async (req, res, next) => {
     let username = req.body.username;
@@ -11,7 +12,7 @@ const signup = async (req, res, next) => {
     let lastname = req.body.lastname;
     let coins = 100;
 
-    const user = new User({ 
+    const user = new User({
         username: username,
         email: email,
         firstname: firstname,
@@ -69,5 +70,18 @@ const login = async (req, res, next) => {
     });
 };
 
+const getUserFromToken = (req, res) => {
+    let token = req.body.token;
+    let user = jwt_decode(token);
+
+    res.json({
+        "status": "success",
+        "data": {
+            "user": user
+        }
+    })
+};
+
 module.exports.signup = signup;
 module.exports.login = login;
+module.exports.getUserFromToken = getUserFromToken;
