@@ -10,6 +10,7 @@ const passport = require('./passport/passport');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const coinsRouter = require('./routes/api/v1/coins');
 
 const app = express();
 
@@ -33,14 +34,15 @@ app.use(cors());
 // app.use('/', passport.authenticate('jwt', {session: false}), indexRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/coins', coinsRouter);
 
 // Catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // Error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
