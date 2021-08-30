@@ -58,7 +58,7 @@ const getOneTransfer = (req, res) => {
 const postTransfer = (req, res, next) => {
     let sender = req.user.username;
     let receiver = req.body.receiver;
-    let amount = req.body.amount;
+    let amount = parseInt(req.body.amount);
     let reason = req.body.reason;
     let comment = req.body.comment;
 
@@ -68,6 +68,46 @@ const postTransfer = (req, res, next) => {
         amount: amount,
         reason: reason,
         comment: comment,
+    });
+
+    User.findOne({
+        "username": sender
+    }, (err, user) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't find the user."
+            });
+        }
+
+        if (!err) {
+            console.log(user.coins);
+            console.log(amount);
+            let newCoins = user.coins - amount;
+            User.findOneAndUpdate({ "username": user.username }, { coins: newCoins }, (err, user) => {
+                console.log(user);
+            });
+        }
+    });
+
+    User.findOne({
+        "username": receiver
+    }, (err, user) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't find the user."
+            });
+        }
+
+        if (!err) {
+            console.log(user.coins);
+            console.log(amount);
+            let newCoins = user.coins + amount;
+            User.findOneAndUpdate({ "username": user.username }, { coins: newCoins }, (err, user) => {
+                console.log(user);
+            });
+        }
     });
 
     transfer.save((err, doc) => {
