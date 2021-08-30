@@ -1,7 +1,7 @@
 const Transfer = require('../../../models/Transfer');
 const User = require('../../../models/User');
 
-const getAllTransfers = (req, res, next) => {
+const getAllMessages = (req, res, next) => {
     let currentUser = req.user.username;
 
     Transfer.find({
@@ -55,7 +55,7 @@ const getOneTransfer = (req, res) => {
     });
 }
 
-const postTransfer = (req, res, next) => {
+const sendMessage = (req, res, next) => {
     let sender = req.user.username;
     let receiver = req.body.receiver;
     let amount = parseInt(req.body.amount);
@@ -148,7 +148,7 @@ const getLeaderboard = (req, res) => {
 }
 
 
-module.exports.getAllTransfers = getAllTransfers;
+module.exports.getAllMessages = getAllMessages;
 module.exports.getOneTransfer = getOneTransfer;
-module.exports.postTransfer = postTransfer;
+module.exports.sendMessage = sendMessage;
 module.exports.getLeaderboard = getLeaderboard;

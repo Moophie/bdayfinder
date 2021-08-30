@@ -10,7 +10,7 @@ const passport = require('./passport/passport');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const coinsRouter = require('./routes/api/v1/coins');
+const chatRouter = require('./routes/api/v1/chat');
 
 const app = express();
 
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/coins', passport.authenticate('jwt', {session: false}),coinsRouter);
+app.use('/chat', passport.authenticate('jwt', {session: false}), chatRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
