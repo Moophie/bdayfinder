@@ -33,14 +33,14 @@ const getAllMessages = (req, res, next) => {
     });
 }
 
-const getOneTransfer = (req, res) => {
-    Transfer.find({
-        "_id": req.params.id
-    }, (err, doc) => {
+const getChatroom = (req, res) => {
+    User.find({
+        "birthday": req.params.birthday
+    }, (err, users) => {
         if (err) {
             res.json({
                 "status": "error",
-                "message": "We couldn't find that transfer."
+                "message": "We couldn't find users with the same birthday."
             });
         }
 
@@ -48,7 +48,7 @@ const getOneTransfer = (req, res) => {
             res.json({
                 "status": "success",
                 "data": {
-                    "transfer": doc
+                    "users": users
                 }
             });
         }
@@ -149,6 +149,6 @@ const getLeaderboard = (req, res) => {
 
 
 module.exports.getAllMessages = getAllMessages;
-module.exports.getOneTransfer = getOneTransfer;
+module.exports.getChatroom = getChatroom;
 module.exports.sendMessage = sendMessage;
 module.exports.getLeaderboard = getLeaderboard;

@@ -26,7 +26,7 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
             if (json.status === "success") {
                 let token = json.data.token;
                 localStorage.setItem("token", token);
-                window.location.href = "index.html";
+                window.location.href = "chat.html?birthday=" + json.data.currentBirthday;
             } else {
                 // Add error handling
             }

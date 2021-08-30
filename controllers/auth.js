@@ -20,6 +20,8 @@ const signup = async (req, res, next) => {
         birthday: birthday
     });
 
+    let currentBirthday = user.birthday;
+
     await user.setPassword(password);
     await user.save().then(result => {
         let token = jwt.sign({
@@ -30,7 +32,8 @@ const signup = async (req, res, next) => {
         res.json({
             "status": "success",
             "data": {
-                "token": token
+                "token": token,
+                "currentBirthday": currentBirthday
             }
         })
     }).catch(error => {
@@ -50,7 +53,7 @@ const login = async (req, res, next) => {
             })
         }
 
-        console.log(result.user.birthday);
+        let currentBirthday = result.user.birthday;
 
         let token = jwt.sign({
             uid: result.user._id,
@@ -60,7 +63,8 @@ const login = async (req, res, next) => {
         res.json({
             "status": "success",
             "data": {
-                "token": token
+                "token": token,
+                "currentBirthday": currentBirthday
             }
         })
     }
@@ -102,7 +106,7 @@ const getAllUsers = (req, res) => {
         if (err) {
             res.json({
                 "status": "error",
-                "message": "We couldn't get the isers."
+                "message": "We couldn't get the users."
             });
         }
 
@@ -117,7 +121,29 @@ const getAllUsers = (req, res) => {
     });
 }
 
+const getUsersByBirthday = (req, res) => {
+    User.find({ "birthday": req.body.birthday }, (err, users) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't get the users."
+            });
+        }
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "users": users
+                }
+            });
+        }
+    });
+}
+
+
 module.exports.signup = signup;
 module.exports.login = login;
 module.exports.getUserFromToken = getUserFromToken;
 module.exports.getAllUsers = getAllUsers;
+module.exports.getUsersByBirthday = getUsersByBirthday;

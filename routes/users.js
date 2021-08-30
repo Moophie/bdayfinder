@@ -12,5 +12,6 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/getUserFromToken', authController.getUserFromToken);
 router.post('/getAllUsers', authController.getAllUsers);
+router.post('/getUsersByBirthday', authController.getUsersByBirthday);
 
 module.exports = router;
