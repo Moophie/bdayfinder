@@ -15,15 +15,17 @@
     <textarea name="messageContent" id="messageContent" cols="30" rows="2"></textarea>
     <button id="sendMessageButton">Send</button>
 
-    <h3>Birthday Sharers: <span id="birthdaySharersAmount"></span></h3>
+    <h3>Birthday Buds: <span id="birthdaySharersAmount"></span></h3>
     <ul id="birthdaySharers"></ul>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="chat.html">Chat</a>
+    <nav class="nav">
+        <a href="index.html" class="nav__link">Home</a>
+        <a id="chatLink" href="chat.html" class="nav__link">Chat</a>
+        <button id="logoutButton" class="nav__button">Log out</button>
     </nav>
 
     <script src="/primus/primus.js"></script>
+    <script src="js/nav.js"></script>
     <script src="js/chat.js"></script>
 </body>
 
