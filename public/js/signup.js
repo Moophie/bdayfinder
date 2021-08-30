@@ -3,6 +3,7 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
     let email = document.querySelector('#email').value;
     let firstname = document.querySelector('#firstname').value;
     let lastname = document.querySelector('#lastname').value;
+    let birthday = document.querySelector('#birthday').value;
     let password = document.querySelector('#password').value;
 
     if (email.endsWith("@student.thomasmore.be")) {
@@ -16,6 +17,7 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
                 "email": email,
                 "firstname": firstname,
                 "lastname": lastname,
+                "birthday": birthday,
                 "password": password,
             })
         }).then(response => {

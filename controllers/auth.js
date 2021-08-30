@@ -10,14 +10,14 @@ const signup = async (req, res, next) => {
     let email = req.body.email;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
-    let coins = 100;
+    let birthday = req.body.birthday;
 
     const user = new User({
         username: username,
         email: email,
         firstname: firstname,
         lastname: lastname,
-        coins: coins
+        birthday: birthday
     });
 
     await user.setPassword(password);
@@ -49,6 +49,8 @@ const login = async (req, res, next) => {
                 "message": "Login failed."
             })
         }
+
+        console.log(result.user.birthday);
 
         let token = jwt.sign({
             uid: result.user._id,
