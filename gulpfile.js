@@ -15,7 +15,7 @@ sass2css = function () {
 
 minifyHtml = function () {
     return src('src/html/*.html')
-    .pipe(htmlmin())
+    .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(dest('public'));
 }
 
@@ -26,14 +26,14 @@ minifyCss = function () {
 };
 
 minifyJs = function () {
-    return src('src/js/*.scss')
+    return src('src/js/*.js')
     .pipe(uglify())
-    .pipe(dest('public/js/lol.js'))
+    .pipe(dest('public/js'))
 };
 
 exports.default = function () {
     watch('./src/html/*.html', minifyHtml);
     watch('./src/sass/**/*.scss', sass2css);
     watch('./src/css/*.css', minifyCss);
-    // watch('./src/js/*.js', minifyJs);
+    watch('./src/js/*.js', minifyJs);
 }
