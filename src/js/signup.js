@@ -1,10 +1,17 @@
 let signupButton = document.querySelector('#signupButton').addEventListener("click", (e) => {
+    let alert = document.querySelector('.alert');    
     let username = document.querySelector('#username').value;
     let email = document.querySelector('#email').value;
     let firstname = document.querySelector('#firstname').value;
     let lastname = document.querySelector('#lastname').value;
     let birthday = document.querySelector('#birthday').value;
     let password = document.querySelector('#password').value;
+
+    if(!username || !email || !firstname || !lastname || !birthday || !password){
+        alert.classList.add("alert--error");
+        alert.innerHTML = "Please fill in all the fields.";
+        return alert.innerHTML;
+    }
 
     fetch("/users/signup", {
         method: "POST",
@@ -27,7 +34,8 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
             localStorage.setItem("token", token);
             window.location.href = "chat.html?birthday=" + json.data.currentBirthday;
         } else {
-            // Add error handling
+            alert.classList.add("alert--error");
+            alert.innerHTML = "We couldn't log you in";
         }
     })
 

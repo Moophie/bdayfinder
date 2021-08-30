@@ -3,7 +3,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const chatroomBirthday = urlParams.get('birthday');
 
-primus = Primus.connect(`http://localhost:3000/?chatroomBirthday=${chatroomBirthday}`, {
+primus = Primus.connect(`/?chatroomBirthday=${chatroomBirthday}`, {
     reconnect: {
         max: Infinity,
         min: 500,

@@ -1,4 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Maven+Pro&family=Patua+One&display=swap");
+.alert {
+  border-radius: 10px;
+  opacity: 0.7;
+  font-size: 1.1em;
+  padding: 10px;
+  color: #fffffe;
+  width: 70%;
+  margin-bottom: 20px; }
+
+.alert--error {
+  background-color: #cc3300; }
+
+.alert--success {
+  background-color: #339900; }
+
+.alert--info {
+  background-color: #ffcc00; }
+
 .nav {
   background-color: #bae8e8;
   color: #272343;
@@ -81,7 +99,8 @@
   border-radius: 5px;
   border: 0px solid black;
   color: inherit;
-  background-color: #fffffe; }
+  background-color: #fffffe;
+  font-size: 1em; }
 
 .form__submit {
   background-color: #ffd803;
@@ -177,6 +196,9 @@ body {
   justify-content: center;
   align-items: center; }
 
+.hidden {
+  display: hidden; }
+
 .header {
   font-family: "Patua One", Cursive; }
 
@@ -187,3 +209,6 @@ body {
   grid-column: 1/2;
   grid-row: 1/2;
   font-size: 2em; }
+
+button:hover {
+  cursor: pointer; }

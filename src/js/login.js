@@ -1,6 +1,13 @@
 let loginButton = document.querySelector('#loginButton').addEventListener("click", (e) => {
+    let alert = document.querySelector('.alert');    
     let username = document.querySelector('#username').value;
     let password = document.querySelector('#password').value;
+
+    if(!username || !password){
+        alert.classList.add("alert--error");
+        alert.innerHTML = "Please fill in all the fields.";
+        return alert.innerHTML;
+    }
 
     fetch("/users/login", {
         method: "POST",
