@@ -1,16 +1,16 @@
-const Transfer = require('../../../models/Transfer');
+const Message = require('../../../models/Message');
 const User = require('../../../models/User');
 
 const getAllMessages = (req, res, next) => {
     let currentUser = req.user.username;
 
-    Transfer.find({
+    Message.find({
         $or: [{ "sender": currentUser }, { "receiver": currentUser }]
     }, (err, docs) => {
         if (err) {
             res.json({
                 "status": "error",
-                "message": "We couldn't get your transfers."
+                "message": "We couldn't get your Models."
             });
         }
 
@@ -18,7 +18,7 @@ const getAllMessages = (req, res, next) => {
         // if(docs === []){
         //     res.json({
         //         "status": "error",
-        //         "message": "We didn't find any transfers you were a part of."
+        //         "message": "We didn't find any Messages you were a part of."
         //     });
         // }
 
@@ -26,7 +26,7 @@ const getAllMessages = (req, res, next) => {
             res.json({
                 "status": "success",
                 "data": {
-                    "transfers": docs
+                    "messages": docs
                 }
             });
         }
@@ -57,74 +57,32 @@ const getChatroom = (req, res) => {
 
 const sendMessage = (req, res, next) => {
     let sender = req.user.username;
-    let receiver = req.body.receiver;
-    let amount = parseInt(req.body.amount);
-    let reason = req.body.reason;
-    let comment = req.body.comment;
+    let content = req.body.content;
+    let time_sent = req.body.time_sent;
 
-    const transfer = new Transfer({
+    const message = new Message({
         sender: sender,
-        receiver: receiver,
-        amount: amount,
-        reason: reason,
-        comment: comment,
+        content: content,
+        time_sent: time_sent
     });
 
-    User.findOne({
-        "username": sender
-    }, (err, sender) => {
+    message.save((err, doc) => {
         if (err) {
             res.json({
                 "status": "error",
-                "message": "We couldn't find the sender."
+                "message": "Could not save this message."
             });
         }
 
         if (!err) {
-            if (sender.coins >= amount) {
-                transfer.save((err, doc) => {
-                    if (err) {
-                        res.json({
-                            "status": "error",
-                            "message": "Could not save this transfer."
-                        });
-                    }
-
-                    if (!err) {
-                        let newCoins = sender.coins - amount;
-                        User.findOneAndUpdate({ "username": sender.username }, { coins: newCoins }, (err, sender) => {
-                        });
-
-                        User.findOne({
-                            "username": receiver
-                        }, (err, receiver) => {
-                            if (err) {
-                                res.json({
-                                    "status": "error",
-                                    "message": "We couldn't find the receiver."
-                                });
-                            }
-
-                            if (!err) {
-                                let newCoins = receiver.coins + amount;
-                                User.findOneAndUpdate({ "username": receiver.username }, { coins: newCoins }, (err, receiver) => {
-                                });
-                            }
-                        });
-
-                        res.json({
-                            "status": "success",
-                            "data": {
-                                "transfer": doc
-                            }
-                        });
-                    }
-                })
-            } else {
-                // Send message that amount is insufficient
-            }
+            res.json({
+                "status": "success",
+                "data": {
+                    "message": doc
+                }
+            });
         }
-    });
+    })
 };
 
 const getLeaderboard = (req, res) => {

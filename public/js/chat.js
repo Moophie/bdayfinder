@@ -23,3 +23,28 @@ fetch("/users/getUsersByBirthday", {
         document.querySelector("#birthdaySharers").insertAdjacentHTML('beforeend', birthdaySharerItem);
     })
 })
+
+let sendMessageButton = document.querySelector('#sendMessageButton').addEventListener("click", (e) => {
+    let content = document.querySelector('#messageContent').value;
+
+    let today = new Date();
+    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes();
+    let time_sent = date + ' ' + time;
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            "content": content,
+            "time_sent": time_sent
+        })
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+
+    })
+});
