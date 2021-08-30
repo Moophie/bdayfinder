@@ -1,3 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Maven+Pro&family=Patua+One&display=swap");
+.nav {
+  background-color: #bae8e8;
+  color: #272343;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 90%;
+  height: 50px;
+  padding: 10px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.nav__list {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  height: 35px;
+  align-items: center; }
+
+.nav__link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.8em; }
+
+.nav__button {
+  border: 0px solid transparent;
+  background-color: #cc3300;
+  border-radius: 5px;
+  padding: 0px 10px;
+  font-size: 1.0em;
+  color: #fffffe;
+  opacity: 0.60;
+  height: 35px; }
+
 body {
-  color: blue; }
+  font-family: "Maven Pro", Sans-Serif;
+  padding: 0px;
+  margin: 0px; }
+
+header {
+  font-family: "Patua One", Cursive; }

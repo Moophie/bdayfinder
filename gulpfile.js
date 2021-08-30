@@ -20,7 +20,7 @@ minifyHtml = function () {
 }
 
 minifyCss = function () {
-    return src('src/css/app.css')
+    return src('src/css/*.css')
         .pipe(csso())
         .pipe(dest('public/css'));
 };

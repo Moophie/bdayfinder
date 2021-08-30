@@ -2,7 +2,14 @@
 @import 'variables/typography';
 @import 'components/buttons';
 @import 'components/alerts';
+@import 'components/nav';
 
 body {
-    color:blue;
+    font-family: $font-text;
+    padding: 0px;
+    margin: 0px;
+}
+
+header {
+    font-family: $font-title;
 }
