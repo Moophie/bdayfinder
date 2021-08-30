@@ -72,61 +72,59 @@ const postTransfer = (req, res, next) => {
 
     User.findOne({
         "username": sender
-    }, (err, user) => {
+    }, (err, sender) => {
         if (err) {
             res.json({
                 "status": "error",
-                "message": "We couldn't find the user."
+                "message": "We couldn't find the sender."
             });
         }
 
         if (!err) {
-            console.log(user.coins);
-            console.log(amount);
-            let newCoins = user.coins - amount;
-            User.findOneAndUpdate({ "username": user.username }, { coins: newCoins }, (err, user) => {
-                console.log(user);
-            });
+            if (sender.coins >= amount) {
+                transfer.save((err, doc) => {
+                    if (err) {
+                        res.json({
+                            "status": "error",
+                            "message": "Could not save this transfer."
+                        });
+                    }
+
+                    if (!err) {
+                        let newCoins = sender.coins - amount;
+                        User.findOneAndUpdate({ "username": sender.username }, { coins: newCoins }, (err, sender) => {
+                        });
+
+                        User.findOne({
+                            "username": receiver
+                        }, (err, receiver) => {
+                            if (err) {
+                                res.json({
+                                    "status": "error",
+                                    "message": "We couldn't find the receiver."
+                                });
+                            }
+
+                            if (!err) {
+                                let newCoins = receiver.coins + amount;
+                                User.findOneAndUpdate({ "username": receiver.username }, { coins: newCoins }, (err, receiver) => {
+                                });
+                            }
+                        });
+
+                        res.json({
+                            "status": "success",
+                            "data": {
+                                "transfer": doc
+                            }
+                        });
+                    }
+                })
+            } else {
+                // Send message that amount is insufficient
+            }
         }
     });
-
-    User.findOne({
-        "username": receiver
-    }, (err, user) => {
-        if (err) {
-            res.json({
-                "status": "error",
-                "message": "We couldn't find the user."
-            });
-        }
-
-        if (!err) {
-            console.log(user.coins);
-            console.log(amount);
-            let newCoins = user.coins + amount;
-            User.findOneAndUpdate({ "username": user.username }, { coins: newCoins }, (err, user) => {
-                console.log(user);
-            });
-        }
-    });
-
-    transfer.save((err, doc) => {
-        if (err) {
-            res.json({
-                "status": "error",
-                "message": "Could not save this transfer."
-            });
-        }
-
-        if (!err) {
-            res.json({
-                "status": "success",
-                "data": {
-                    "transfer": doc
-                }
-            });
-        }
-    })
 };
 
 const getLeaderboard = (req, res) => {
