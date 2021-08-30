@@ -30,8 +30,6 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
             }
         })
     } else {
-       // Error handling
+        // Error handling
     }
-
-
 });

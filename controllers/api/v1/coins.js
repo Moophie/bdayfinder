@@ -54,14 +54,18 @@ const getOneTransfer = (req, res) => {
 }
 
 const postTransfer = (req, res, next) => {
-    let sender = req.body.sender;
+    let sender = req.user.username;
     let receiver = req.body.receiver;
     let amount = req.body.amount;
+    let reason = req.body.reason;
+    let comment = req.body.comment;
 
     const transfer = new Transfer({
         sender: sender,
         receiver: receiver,
-        amount: amount
+        amount: amount,
+        reason: reason,
+        comment: comment,
     });
 
     transfer.save((err, doc) => {
