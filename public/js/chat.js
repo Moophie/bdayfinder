@@ -3,6 +3,20 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const chatroomBirthday = urlParams.get('birthday');
 
+primus = Primus.connect('http://localhost:3000', {
+    reconnect: {
+        max: Infinity,
+        min: 500,
+        retries: 10
+    }
+});
+
+primus.on('data', (data) => {
+    if(data.action === "sendMessage"){
+        appendMessage(data.message);
+    }
+});
+
 fetch("/users/getUsersByBirthday", {
     method: "POST",
     headers: {
@@ -20,9 +34,9 @@ fetch("/users/getUsersByBirthday", {
 
     json.data.users.forEach(user => {
         let birthdaySharerItem = `<li>${user.firstname} ${user.lastname}</li>`
-        document.querySelector("#birthdaySharers").insertAdjacentHTML('beforeend', birthdaySharerItem);
+        document.querySelector("#birthdaySharers").insertAdjacentHTML('beforeEnd', birthdaySharerItem);
     })
-})
+});
 
 fetch("/chat/getMessagesByChatroom", {
     method: "POST",
@@ -41,18 +55,11 @@ fetch("/chat/getMessagesByChatroom", {
         chatRoomMessages.push(message);
     })
 
-    chatRoomMessages.sort((a, b) => b.time_sent - a.time_sent);
+    chatRoomMessages.sort((a, b) => a.time_sent - b.time_sent);
     chatRoomMessages.forEach(message => {
-        let date = new Date(parseInt(message.time_sent));
-        let time_sent_datetime = date.getDate() +
-            "/" + (date.getMonth() + 1) +
-            "/" + date.getFullYear() +
-            " " + date.getHours() +
-            ":" + date.getMinutes();
-        let messageItem = `<li><h4>${message.sender} - ${time_sent_datetime}</h4><p>${message.content}</p></li>`;
-        document.querySelector("#chatMessages").insertAdjacentHTML('beforeend', messageItem);
+        appendMessage(message);        
     });
-})
+});
 
 let sendMessageButton = document.querySelector('#sendMessageButton').addEventListener("click", (e) => {
     let content = document.querySelector('#messageContent').value;
@@ -71,6 +78,24 @@ let sendMessageButton = document.querySelector('#sendMessageButton').addEventLis
     }).then(response => {
         return response.json();
     }).then(json => {
+        let message = json.data.message;
 
+        primus.write({
+            "action": "sendMessage",
+            "message": message
+        });
+
+        //appendMessage(message);
     })
 });
+
+let appendMessage = (message) => {
+    let date = new Date(parseInt(message.time_sent));
+    let time_sent_datetime = date.getDate() +
+        "/" + (date.getMonth() + 1) +
+        "/" + date.getFullYear() +
+        " " + date.getHours() +
+        ":" + date.getMinutes();
+    let messageItem = `<li><h4>${message.sender} - ${time_sent_datetime}</h4><p>${message.content}</p></li>`;
+    document.querySelector("#chatMessages").insertAdjacentHTML('afterBegin', messageItem);
+}
