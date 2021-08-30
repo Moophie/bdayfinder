@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/.bin/nodemon ./bin/www",
-    "sass-watch": "./node_modules/.bin/sass --watch ./src/sass/app.scss:./public/css/app.css"
+    "sass-watch": "./node_modules/.bin/sass --watch ./src/sass/app.scss:./public/css/app.css",
+    "gulp": "./node_modules/.bin/gulp"
   },
   "dependencies": {
     "config": "^3.3.6",
