@@ -3,13 +3,37 @@
 @import 'components/buttons';
 @import 'components/alerts';
 @import 'components/nav';
+@import 'components/forms';
+@import 'components/chat';
+@import 'components/lists';
 
 body {
     font-family: $font-text;
+    color: $color-text;
     padding: 0px;
     margin: 0px;
+    height: 100vh;
 }
 
-header {
+main {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 70% auto;
+    grid-template-rows: 8% 80% 8%;
+    justify-items: start;
+    height: 90%;
+}
+
+.header {
     font-family: $font-title;
+}
+
+.header--small {
+    font-size: 1.5em;
+}
+
+.header--big {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    font-size: 2em;
 }

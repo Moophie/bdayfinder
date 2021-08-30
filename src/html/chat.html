@@ -12,15 +12,20 @@
 </head>
 
 <body>
-    <h1 class="header">Birthday Chat</h1>
-    <ul class="chat" id="chatMessages"></ul>
-    <div class="input">
-        <textarea class="input__box" name="messageContent" id="messageContent" cols="30" rows="2"></textarea>
-        <button class="input__button" id="sendMessageButton">Send</button>
-    </div>
-
-    <h3 class="header">Birthday Buds: <span class="header__amount" id="birthdaySharersAmount"></span></h3>
-    <ul class="list" id="birthdaySharers"></ul>
+    <main>
+        <h1 class="header header--big">Birthday Chat</h1>
+            <ul class="chat" id="chatMessages"></ul>
+        <div class="form form--chat">
+            <textarea class="form__textarea" name="messageContent" id="messageContent" placeholder="Say something!"
+                cols="30" rows="1"></textarea>
+            <button class="form__submit" id="sendMessageButton">Send</button>
+        </div>
+        <div class="list__container">
+            <h3 class="header header--small">Birthday Buds: <span class="header__amount"
+                    id="birthdaySharersAmount"></span></h3>
+            <ul class="list" id="birthdaySharers"></ul>
+        </div>
+    </main>
 
     <nav class="nav">
         <div class="nav__list">

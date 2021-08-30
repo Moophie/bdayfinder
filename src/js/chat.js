@@ -36,7 +36,7 @@ fetch("/users/getUsersByBirthday", {
     document.querySelector("#birthdaySharersAmount").innerHTML = birthdaySharersAmount;
 
     json.data.users.forEach(user => {
-        let birthdaySharerItem = `<li class="list__item">${user.firstname} ${user.lastname}</li>`
+        let birthdaySharerItem = `<li class="list__item">${user.username}</li>`
         document.querySelector("#birthdaySharers").insertAdjacentHTML('beforeEnd', birthdaySharerItem);
     })
 });
