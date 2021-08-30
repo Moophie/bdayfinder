@@ -2,8 +2,10 @@ const Transfer = require('../../../models/Transfer');
 const User = require('../../../models/User');
 
 const getAllTransfers = (req, res, next) => {
+    let currentUser = req.user.username;
+
     Transfer.find({
-        "sender": req.body.sender
+        $or: [{ "sender": currentUser }, { "receiver": currentUser }]
     }, (err, docs) => {
         if (err) {
             res.json({
@@ -104,7 +106,7 @@ const getLeaderboard = (req, res) => {
                 }
             });
         }
-    }).sort({coins: 'desc'});
+    }).sort({ coins: 'desc' });
 }
 
 
