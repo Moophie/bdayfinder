@@ -36,7 +36,7 @@ fetch("/users/getUsersByBirthday", {
     document.querySelector("#birthdaySharersAmount").innerHTML = birthdaySharersAmount;
 
     json.data.users.forEach(user => {
-        let birthdaySharerItem = `<li>${user.firstname} ${user.lastname}</li>`
+        let birthdaySharerItem = `<li class="list__item">${user.firstname} ${user.lastname}</li>`
         document.querySelector("#birthdaySharers").insertAdjacentHTML('beforeEnd', birthdaySharerItem);
     })
 });
@@ -99,6 +99,6 @@ let appendMessage = (message) => {
         "/" + date.getFullYear() +
         " " + date.getHours() +
         ":" + date.getMinutes();
-    let messageItem = `<li><h4>${message.sender} - ${time_sent_datetime}</h4><p>${message.content}</p></li>`;
+    let messageItem = `<li class="chat__item"><h4 class="chat__sender">${message.sender}</h4><p class="chat__time">${time_sent_datetime}</p><p class="chat__content">${message.content}</p></li>`;
     document.querySelector("#chatMessages").insertAdjacentHTML('afterBegin', messageItem);
 }
