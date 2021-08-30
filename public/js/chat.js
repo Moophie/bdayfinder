@@ -3,7 +3,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const chatroomBirthday = urlParams.get('birthday');
 
-primus = Primus.connect('http://localhost:3000', {
+primus = Primus.connect(`http://localhost:3000/?chatroomBirthday=${chatroomBirthday}`, {
     reconnect: {
         max: Infinity,
         min: 500,
@@ -12,10 +12,13 @@ primus = Primus.connect('http://localhost:3000', {
 });
 
 primus.on('data', (data) => {
-    if(data.action === "sendMessage"){
-        appendMessage(data.message);
+    if (data.action === "sendMessage") {
+        if (data.message.chatroom_birthday === chatroomBirthday) {
+            appendMessage(data.message);
+        }
     }
 });
+
 
 fetch("/users/getUsersByBirthday", {
     method: "POST",
@@ -57,7 +60,7 @@ fetch("/chat/getMessagesByChatroom", {
 
     chatRoomMessages.sort((a, b) => a.time_sent - b.time_sent);
     chatRoomMessages.forEach(message => {
-        appendMessage(message);        
+        appendMessage(message);
     });
 });
 
