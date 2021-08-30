@@ -32,3 +32,10 @@ let signupButton = document.querySelector('#signupButton').addEventListener("cli
     })
 
 });
+
+let passwordInput = document.querySelector('#password').addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        document.querySelector('#signupButton').click();
+    }
+});

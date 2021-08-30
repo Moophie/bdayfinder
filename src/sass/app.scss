@@ -6,22 +6,31 @@
 @import 'components/forms';
 @import 'components/chat';
 @import 'components/lists';
+@import 'components/links';
 
 body {
     font-family: $font-text;
     color: $color-text;
+    background-color: $color-background;
     padding: 0px;
     margin: 0px;
     height: 100vh;
 }
 
-main {
+.content {
     padding: 15px;
     display: grid;
     grid-template-columns: 70% auto;
     grid-template-rows: 8% 80% 8%;
     justify-items: start;
     height: 90%;
+}
+
+.content--auth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .header {

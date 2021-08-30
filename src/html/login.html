@@ -11,13 +11,20 @@
 </head>
 
 <body>
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username">
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password">
-    <button id="loginButton">Log in</button>
-
-    <a href="signup.html">No account yet? Sign up here!</a>
+    <main class="content content--auth">
+        <div class="form form--auth">
+            <div class="form__input-group">
+                <label class="form__label" for="username">Username</label>
+                <input class="form__input" type="text" name="username" id="username">
+            </div>
+            <div class="form__input-group">
+                <label class="form__label" for="password">Password</label>
+                <input class="form__input" type="password" name="password" id="password">
+            </div>
+            <button class="form__submit form__submit--auth" id="loginButton">Log in</button>
+        </div>
+        <a class="link" href="signup.html">No account yet? Sign up here!</a>
+    </main>
 
     <script src="js/login.js"></script>
 </body>

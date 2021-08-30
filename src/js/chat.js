@@ -89,6 +89,7 @@ let sendMessageButton = document.querySelector('#sendMessageButton').addEventLis
         });
 
         //appendMessage(message);
+        document.querySelector('#messageContent').value = "";
     })
 });
 
@@ -102,3 +103,10 @@ let appendMessage = (message) => {
     let messageItem = `<li class="chat__item"><h4 class="chat__sender">${message.sender}</h4><p class="chat__time">${time_sent_datetime}</p><p class="chat__content">${message.content}</p></li>`;
     document.querySelector("#chatMessages").insertAdjacentHTML('afterBegin', messageItem);
 }
+
+let messageInput = document.querySelector('#messageContent').addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        document.querySelector('#sendMessageButton').click();
+    }
+});

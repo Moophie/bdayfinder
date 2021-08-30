@@ -23,3 +23,10 @@ let loginButton = document.querySelector('#loginButton').addEventListener("click
         }
     })
 });
+
+let passwordInput = document.querySelector('#password').addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        document.querySelector('#loginButton').click();
+    }
+});
