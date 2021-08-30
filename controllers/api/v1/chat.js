@@ -2,25 +2,13 @@ const Message = require('../../../models/Message');
 const User = require('../../../models/User');
 
 const getAllMessages = (req, res, next) => {
-    let currentUser = req.user.username;
-
-    Message.find({
-        $or: [{ "sender": currentUser }, { "receiver": currentUser }]
-    }, (err, docs) => {
+    Message.find((err, docs) => {
         if (err) {
             res.json({
                 "status": "error",
-                "message": "We couldn't get your Models."
+                "message": "We couldn't get your messages."
             });
         }
-
-        // Give appropriate message if the user has no transactions
-        // if(docs === []){
-        //     res.json({
-        //         "status": "error",
-        //         "message": "We didn't find any Messages you were a part of."
-        //     });
-        // }
 
         if (!err) {
             res.json({
@@ -31,6 +19,26 @@ const getAllMessages = (req, res, next) => {
             });
         }
     });
+}
+
+const getMessagesByChatroom = (req, res) => {
+    Message.find({"chatroom_birthday": req.body.chatroomBirthday}, (err, messages) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't get your messages."
+            });
+        }
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "messages": messages
+                }
+            });
+        }
+    })
 }
 
 const getChatroom = (req, res) => {
@@ -59,11 +67,13 @@ const sendMessage = (req, res, next) => {
     let sender = req.user.username;
     let content = req.body.content;
     let time_sent = req.body.time_sent;
+    let chatroom_birthday = req.user.birthday;
 
     const message = new Message({
         sender: sender,
         content: content,
-        time_sent: time_sent
+        time_sent: time_sent,
+        chatroom_birthday: chatroom_birthday
     });
 
     message.save((err, doc) => {
@@ -107,6 +117,7 @@ const getLeaderboard = (req, res) => {
 
 
 module.exports.getAllMessages = getAllMessages;
+module.exports.getMessagesByChatroom = getMessagesByChatroom;
 module.exports.getChatroom = getChatroom;
 module.exports.sendMessage = sendMessage;
 module.exports.getLeaderboard = getLeaderboard;
