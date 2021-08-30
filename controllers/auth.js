@@ -95,6 +95,27 @@ const getUserFromToken = (req, res) => {
     });
 };
 
+const getAllUsers = (req, res) => {
+    User.find((err, users) => {
+        if (err) {
+            res.json({
+                "status": "error",
+                "message": "We couldn't get the isers."
+            });
+        }
+
+        if (!err) {
+            res.json({
+                "status": "success",
+                "data": {
+                    "users": users
+                }
+            });
+        }
+    });
+}
+
 module.exports.signup = signup;
 module.exports.login = login;
 module.exports.getUserFromToken = getUserFromToken;
+module.exports.getAllUsers = getAllUsers;
