@@ -95,29 +95,7 @@ const sendMessage = (req, res, next) => {
     })
 };
 
-const getLeaderboard = (req, res) => {
-    User.find((err, users) => {
-        if (err) {
-            res.json({
-                "status": "error",
-                "message": "We couldn't get the leaderboard."
-            });
-        }
-
-        if (!err) {
-            res.json({
-                "status": "success",
-                "data": {
-                    "users": users
-                }
-            });
-        }
-    }).sort({ coins: 'desc' });
-}
-
-
 module.exports.getAllMessages = getAllMessages;
 module.exports.getMessagesByChatroom = getMessagesByChatroom;
 module.exports.getChatroom = getChatroom;
 module.exports.sendMessage = sendMessage;
-module.exports.getLeaderboard = getLeaderboard;
