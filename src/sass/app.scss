@@ -34,7 +34,7 @@ body {
 }
 
 .hidden {
-    display: hidden; 
+    display: hidden;
 }
 
 .header {
@@ -53,4 +53,28 @@ body {
 
 button:hover {
     cursor: pointer;
+}
+
+.text--big {
+    font-size: 1.5em;
+    margin: 20px 0px;
+}
+
+.text--xxl {
+    font-size: 2.3em;
+}
+
+.content--index {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 15% auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.countdowncontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
