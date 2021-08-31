@@ -38,10 +38,19 @@ window.addEventListener('load', (e) => {
             let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-            document.querySelector("#countdown").innerHTML = days + "d " + hours + "h "
+
+            if(days === 364){
+                document.querySelector("#countdown").innerHTML = "ITS YOUR BIRTHDAY!";
+                document.querySelector(".header").innerHTML = "";
+                document.querySelectorAll(".text").forEach((node) => {
+                    node.innerHTML = "";
+                })
+                let contentDiv = document.querySelector(".content--index");
+                contentDiv.classList.add('happyBirthday');
+            } else {
+                document.querySelector("#countdown").innerHTML = days + "d " + hours + "h "
                 + minutes + "m " + seconds + "s ";
-    
+            }
         }, 1000);
     })
 });
